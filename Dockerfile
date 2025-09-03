@@ -9,7 +9,3 @@ LABEL description="This container is for Tufts course EE110 by Dr. Mai Vu"
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Install our own libraries
-COPY *.py .
-RUN pip install .
