@@ -1,0 +1,16 @@
+torchvision
+torchaudio
+torchtext
+numpy
+scipy
+pandas
+scikit-learn
+transformers
+tokenizers
+datasets
+sentencepiece
+spacy
+matplotlib
+seaborn
+tensorboard
+wandb
