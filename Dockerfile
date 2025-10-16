@@ -1,5 +1,5 @@
 # Use the specified base image
-FROM pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 
 # Author label
 LABEL maintainer="Yucheng Zhang <Yucheng.Zhang@tufts.edu>"
@@ -8,4 +8,4 @@ LABEL maintainer="Yucheng Zhang <Yucheng.Zhang@tufts.edu>"
 LABEL description="This container is for Tufts course EE110 by Dr. Mai Vu"
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r transformer_requirement.txt
