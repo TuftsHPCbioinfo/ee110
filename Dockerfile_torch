@@ -1,0 +1,20 @@
+# Use the specified base image
+FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
+
+# Author label
+LABEL maintainer="Yucheng Zhang <Yucheng.Zhang@tufts.edu>"
+
+# Help message
+LABEL description="This container is for Tufts course EE110 by Dr. Mai Vu"
+
+RUN pip3 install \
+  torchtext==0.17.2 \
+  numpy==1.26.4 scipy pandas==2.3.1 scikit-learn tqdm==4.66.5 \
+  transformers tokenizers datasets==4.0.0 sentencepiece==0.2.1 \
+  langcodes==3.5.0 language-data==1.3.0 \
+  matplotlib seaborn jupyterlab ipykernel ipywidgets tensorboard==2.20.0 wandb \
+  --extra-index-url https://download.pytorch.org/whl/cu121
+
+RUN python -m pip install spacy==3.7.4 && \
+    python -m spacy download en_core_web_sm && \
+    python -m spacy download de_core_news_sm
