@@ -23,7 +23,7 @@ jobs:
         with:
           images: |
             tuftsttsrt/ee110
-          tags: project1
+          tags: project4
       - name: Build & Publish Docker Image
         uses: docker/build-push-action@v5
         with:
