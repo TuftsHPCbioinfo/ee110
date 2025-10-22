@@ -1,31 +1,13 @@
-# Use the specified base image
-FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 
-# Author label
-LABEL maintainer="Yucheng Zhang <Yucheng.Zhang@tufts.edu>"
+FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
 
-# Help message
-LABEL description="This container is for Tufts course EE110 by Dr. Mai Vu"
+RUN pip install torchtext==0.17.2 torchdata==0.7.1 --extra-index-url https://download.pytorch.org/whl/cu121
 
+RUN pip install numpy==1.26.4 scipy pandas==2.3.1 scikit-learn tqdm==4.66.5 \
+  transformers tokenizers datasets==2.19.1 sentencepiece==0.2.1 \
+  langcodes==3.5.0 language-data==1.3.0 portalocker \
+  matplotlib seaborn tensorboard==2.20.0 wandb spacy==3.7.4
 
-# Set environment variables
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends build-essential wget git && \
-    wget https://github.com/conda-forge/miniforge/releases/download/25.3.1-0/Miniforge3-25.3.1-0-Linux-x86_64.sh  \
-    && bash Miniforge3-25.3.1-0-Linux-x86_64.sh -b -p /opt/miniforge \
-    && rm -f Miniforge3-25.3.1-0-Linux-x86_64.sh  
-ENV PATH=/opt/miniforge/bin:$PATH
-
-# Update conda and clean
-RUN conda update --all \
-    && conda clean --all --yes \
-    && rm -rf /root/.cache/pip
-# Update conda and clean
-RUN conda update --all \
-    && conda clean --all --yes \
-    && rm -rf /root/.cache/pip
-
-
-COPY project4_environment.yml .
-RUN conda env create --prefix /opt/conda/env/ml-nlp -f project4_environment.yml
-ENV PATH=/opt/conda/env/ml-nlp/bin:$PATH
+RUN python -m spacy download en_core_web_sm
+RUN python -m spacy download de_core_news_sm
+RUN python -m spacy download fr_core_news_sm
